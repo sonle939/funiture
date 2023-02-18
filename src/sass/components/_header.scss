@@ -1,0 +1,384 @@
+.header {
+  @include flex(center, center);
+  flex-direction: column;
+  width: 100%;
+  padding: 10px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  background-color: $background_white;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  &_top {
+    display: flex;
+    align-items: center;
+    height: 90px;
+    width: 100%;
+    justify-content: space-around;
+    transition: 0.5s linear;
+    margin-bottom: 20px;
+    position: relative;
+    @include mobile {
+      padding: 0 20px;
+    }
+    @include tablet {
+      padding: 0 20px;
+      justify-content: space-between;
+    }
+    h3 {
+      font-size: 25px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      @include tablet {
+        font-size: 18px;
+        margin-right: 70px;
+      }
+      @include mobile {
+        display: none;
+      }
+    }
+    img {
+      width: 240px;
+      height: 90px;
+      @include tablet {
+        width: 180px;
+        height: 80px;
+        margin: 0;
+      }
+      @include mobile {
+        width: 8.6rem;
+        height: 3.75rem;
+        margin: 0 20px;
+      }
+    }
+    .header_icon {
+      @include flex(center, center);
+      @include mobile {
+        display: none;
+      }
+      @include tablet {
+        margin-left: 50px;
+      }
+      .fa-user {
+        font-size: 20px;
+        text-transform: uppercase;
+        color: $background_black;
+        @include tablet {
+          font-size: 18px;
+        }
+      }
+      .header_icon_list {
+        @include flex(center, center);
+        margin: 0 20px;
+        .header_icon_icon {
+          @include flex(center, center);
+          font-size: 18px;
+          margin: 0 10px;
+          color: $text_color;
+          p {
+          }
+          i {
+            font-size: 18px;
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+    .menu_drop {
+      @include tablet { 
+        display: none;
+      }
+      @include laptop {
+        display: none;
+      }
+      @include mobile {
+        @include flex(center, center);
+      }
+      .dropdown_icon {
+        @include flex(center, center);
+        padding: 10px;
+        border-radius: 12px;
+        background-color: #fff;
+        border: 1px solid #e7e7e7;
+        position: relative;
+        cursor: pointer;
+        p {
+          font-size: 18px;
+          text-transform: capitalize;
+          letter-spacing: 1px;
+          margin-right: 5px;
+          font-weight: 400;
+        }
+        i {
+          font-size: 20px;
+        }
+      } 
+      .drop_list {
+        position: absolute;
+        top: 48px;
+        left: 0px;
+        background-color: white;
+        @include flex(start, center);
+        padding: 5px;
+        flex-direction: column;
+        border-radius: 6px;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        transition: transform 0.5s ease-in;
+        opacity: 1;
+        transform: translateY(0);
+        z-index: 99;
+        &.active {
+          position: absolute;
+          transform: translateY(40px);
+          opacity: 0;
+          transition: transform 0.5s ease-in;
+          padding: 5px;
+        }
+        .header_icon_icon {
+          margin: 10px 0;
+          @include flex(center, center);
+          i {
+            margin-right: 5px;
+          }
+          p {
+            font-size: 15px;
+          }
+        }
+        i {
+          font-size: 1.2rem;
+          color: black;
+        }
+      }
+    }
+  }
+  .active {
+    visibility: hidden;
+    opacity: 0;
+    height: 0;
+    margin-bottom: 0;
+    transition: 0.5s linear;
+  }
+  &_bottom {
+    @include flex(center, center);
+    li {
+      margin: 0 15px;
+      a {
+        font-size: 20px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        color: $text_color;
+        text-transform: uppercase;
+        overflow: hidden;
+        position: relative;
+        display: inline-block;
+        @include tablet {
+          font-size: 19px;
+        }
+        @include mobile {
+          font-size: 18px;
+        }
+        &::before,
+        &::after {
+          content: "";
+          position: absolute;
+          width: 100%;
+          left: 0;
+        }
+        &::before {
+          background-color: #78716c;
+          height: 2px;
+          bottom: 0;
+          transform-origin: 100% 50%;
+          transform: scaleX(0);
+          transition: transform 0.3s cubic-bezier(0.76, 0, 0.24, 1);
+        }
+        &::after {
+          content: attr(data-replace);
+          height: 100%;
+          top: 0;
+          transform-origin: 100% 50%;
+          transform: translate3d(200%, 0, 0);
+          transition: transform 0.3s cubic-bezier(0.76, 0, 0.24, 1);
+          color: #78716c;
+        }
+
+        &:hover::before {
+          transform-origin: 0% 50%;
+          transform: scaleX(1);
+        }
+        &:hover::after {
+          transform: translate3d(0, 0, 0);
+        }
+
+        & > span {
+          display: inline-block;
+          transition: transform 0.3s cubic-bezier(0.76, 0, 0.24, 1);
+        }
+
+        &:hover span {
+          transform: translate3d(-200%, 0, 0);
+        }
+      }
+    }
+  }
+  .overlay_search {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    @include flex(center, center);
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.97);
+    animation: aniheight 0.5s linear;
+    .input_wrapper {
+      width: 40%;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #ebebeb;
+      @include tablet{
+        width: 55%;
+      }
+      @include mobile{
+        width: 60%;
+      }
+      i {
+        font-size: 20px;
+        color: #ebebeb;
+      }
+      input {
+        height: 100%;
+        width: 60%;
+        border: none;
+        padding: 10px;
+        font-size: 15px;
+        letter-spacing: 1px;
+        color: #ebebeb;
+        font-style: italic;
+        background-color: transparent;
+        @include tablet{
+          width: 100%;
+        }
+        @include mobile{
+          width: 100%;
+          font-size: .8rem;
+        }
+      }
+    }
+    .content_search {
+      background-color: #ebebeb;
+      width: 40%;
+      height: 210px;
+      overflow: scroll;
+      margin-top: 20px;
+      transition: height 0.4s ease-in-out;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      opacity: 1;
+      transition: height 0.5s ease-in;
+      border-radius: 6px;
+      @include tablet{
+        width: 55%;
+      }
+      .sear_content {
+        display: flex;
+        align-items: center;
+        transition: all .5s linear;
+        border-radius: 6px;
+        padding: 10px;
+        margin: 10px 0;
+        img {
+          width: 45px;
+          height: 45px;
+          object-fit: cover;
+          border-radius: 50%;
+        }
+        .sear_text {
+          margin-left: 15px;
+          color: #000;
+        }
+        &:hover{
+          box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+        }
+      }
+      .active {
+        padding: 10px;
+        height: 300px;
+      }
+      &::-webkit-scrollbar {
+        width: 0px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: transparent;
+      }
+      &::-webkit-scrollbar-track {
+        background-color: transparent;
+      }
+      &.active{
+        height: 0;
+        opacity: 0;
+        transition: height 0.5s ease-in;
+      }
+    }
+    &.active {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      height: 0;
+      @include flex(center, center);
+      background-color: rgba(0, 0, 0, 0.97);
+      //transition: height 0.5s ease-in;
+      animation: aniheight 0.5s linear;
+    }
+    .overlay-icon {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      height: 45px;
+      width: 45px;
+      @include flex(center, center);
+      background-color: transparent;
+      border: 1px solid #fff;
+      border-radius: 50%;
+      z-index: 99;
+      transition: all .5s linear;
+      cursor: pointer;
+      i {
+        font-size: 19px;
+        color: #fff;
+      }
+      &::before{
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: transparent;
+        z-index: -1;
+        transition: all .5s linear;
+        border-radius: 50%;
+        transform: scale(0) rotate(0);
+      }
+      &:hover i{
+        color: #000;
+      }
+      &:hover::before{
+        background-color: #fff;
+        transform: scale(1) rotate(180deg);
+      }
+    }
+  }
+}
